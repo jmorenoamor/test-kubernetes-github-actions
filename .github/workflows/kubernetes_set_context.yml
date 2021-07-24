@@ -16,15 +16,18 @@ jobs:
       #     method: kubeconfig
       #     kubeconfig: <your kubeconfig> # Use secret (https://developer.github.com/actions/managing-workflows/storing-secrets/)
       #     context: <context name>  #If left unspecified, current-context from kubeconfig is used as default
+
+
+      # ###############################################################################################################
+      # For fetching Server URL, execute the following command on your shell:
+      # kubectl config view --minify -o 'jsonpath={.clusters[0].cluster.server}'
+      #
+      # For fetching Secret object required to connect and authenticate with the cluster, the following
+      # sequence of commands need to be run:
+      # kubectl get serviceAccounts <service-account-name> -n <namespace> -o 'jsonpath={.secrets[*].name}'
+      # kubectl get secret <service-account-secret-name> -n <namespace> -o yaml
+      # ###############################################################################################################
       -
-        #
-        # For fetching Server URL, execute the following command on your shell:
-        # kubectl config view --minify -o 'jsonpath={.clusters[0].cluster.server}'
-        #
-        # For fetching Secret object required to connect and authenticate with the cluster, the following sequence of commands need to be run:
-        # kubectl get serviceAccounts <service-account-name> -n <namespace> -o 'jsonpath={.secrets[*].name}'
-        # kubectl get secret <service-account-secret-name> -n <namespace> -o yaml
-        #
         name: Service account approach
         id: setcontext_sa
         uses: azure/k8s-set-context@v1
@@ -32,3 +35,17 @@ jobs:
           method: service-account
           k8s-url: ${{ secrets.KUBERNETES_API_URL }}
           k8s-secret: ${{ secrets.KUBERNETES_SA }}
+
+      # ###############################################################################################################
+      -
+        uses: Azure/k8s-deploy@v1.4
+        with:
+          namespace: 'olympus'
+          # manifests: |
+          #     deployment.yaml
+          #     service.yaml
+          images: 'hello-world:latest'
+          # imagepullsecrets: |
+          #   image-pull-secret1
+          #   image-pull-secret2
+          kubectl-version: 'latest'
