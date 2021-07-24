@@ -31,4 +31,4 @@ jobs:
         with:
           method: service-account
           k8s-url: ${{ secrets.KUBERNETES_API_URL }}
-          k8s-secret: ${{ secrets.KUBERNETES_SA_TOKEN }}
+          k8s-secret: ${{ secrets.KUBERNETES_SA }}
