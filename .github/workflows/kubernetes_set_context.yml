@@ -28,7 +28,7 @@ jobs:
       # kubectl get secret <service-account-secret-name> -n <namespace> -o yaml
       # ###############################################################################################################
       -
-        name: Service account approach
+        name: Set context (Service account approach)
         id: setcontext_sa
         uses: azure/k8s-set-context@v1
         with:
@@ -41,10 +41,10 @@ jobs:
         uses: Azure/k8s-deploy@v1.4
         with:
           namespace: 'olympus'
-          # manifests: |
-          #     deployment.yaml
+          manifests: |
+              manifests/deployment.yaml
           #     service.yaml
-          images: 'hello-world:latest'
+          # images: 'hello-world:latest'
           # imagepullsecrets: |
           #   image-pull-secret1
           #   image-pull-secret2
