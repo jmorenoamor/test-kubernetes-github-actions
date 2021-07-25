@@ -6,20 +6,24 @@ on:
 
 jobs:
   main:
+    name: Kubecosas
     runs-on: ubuntu-latest
     steps:
       -
+        id: checkout
         name: Checkout
         uses: actions/checkout@v2
       -
-        name: Set context (Service account approach)
         id: setcontext_sa
+        name: Set context (Service account approach)
         uses: azure/k8s-set-context@v1
         with:
           method: service-account
           k8s-url: ${{ secrets.KUBERNETES_API_URL }}
           k8s-secret: ${{ secrets.KUBERNETES_SA }}
       -
+        id: deploy_manifests
+        name : Deploy manifests
         uses: Azure/k8s-deploy@v1.4
         with:
           namespace: 'olympus'
