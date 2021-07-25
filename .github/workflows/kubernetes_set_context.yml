@@ -29,7 +29,8 @@ jobs:
           namespace: 'olympus'
           manifests: |
               manifests/deployment.yaml
-              manifests/service.yaml
+              manifests/default-service.yaml
+              manifests/nodeport-service.yaml
           # images: 'hello-world:latest'
           # imagepullsecrets: |
           #   image-pull-secret1
