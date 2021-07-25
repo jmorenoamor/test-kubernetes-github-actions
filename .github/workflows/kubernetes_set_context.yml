@@ -42,7 +42,7 @@ jobs:
         with:
           namespace: 'olympus'
           manifests: |
-              manifests/deployment.yaml
+              ./manifests/deployment.yaml
           #     service.yaml
           # images: 'hello-world:latest'
           # imagepullsecrets: |
